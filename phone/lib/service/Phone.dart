@@ -31,8 +31,6 @@ class _PhoneState extends State<Phone> {
     }
   }
 
-  
-
   void _deleteDigit() {
     setState(() {
       if (_controller.text.isNotEmpty) {
@@ -56,62 +54,81 @@ class _PhoneState extends State<Phone> {
     );
   }
 
-void _checkSpecialCode() {
-  if (_controller.text == "*#06#") {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Información del Dispositivo'),
-        content: Container(
-          width: double.maxFinite, // Asegura que el contenido se expanda correctamente
-          child: SingleChildScrollView(
+  void _checkSpecialCode() {
+    if (_controller.text == "*#06#*") {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Información del Dispositivo',
+              style: TextStyle(color: Colors.white)),
+          content: SingleChildScrollView(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start, // Alinea a la izquierda
               children: [
                 Text(
-                  'Desarrollado por [Tu Nombre]',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  'IMEI (ranura de SIM 1)',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                  textAlign: TextAlign.left,
                 ),
-                Image.asset('assets/developer.png'),
+                Text(
+                  '866400054690883/00',
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.grey),
+                ),
+                Image.asset('lib/assets/IMEI1.jpeg'),
                 SizedBox(height: 20),
                 Text(
-                  'Más información sobre el proyecto:',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                  'IMEI (ranura de SIM 2)',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                  textAlign: TextAlign.left,
                 ),
-                Image.asset('assets/developer.png'),
+                Text(
+                  '866400055668573/00',
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.grey),
+                ),
+                Image.asset('lib/assets/IMEI2.jpeg'),
                 SizedBox(height: 20),
                 Text(
-                  'Detalles adicionales del desarrollador...',
-                  style: TextStyle(fontSize: 16),
+                  'ICCID (ranura de SIM 2)',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
                 ),
-                Image.asset('assets/developer.png'),
+                Text(
+                  '89571017024080819910',
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.grey),
+                ),
+                Image.asset('lib/assets/ICCID.jpeg'),
                 SizedBox(height: 20),
                 Text(
-                  'Gracias por usar esta aplicación.',
-                  style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
+                  'Número de serie',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
                 ),
+                Text(
+                  '27285/60XA04157',
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.grey),
+                ),
+                Image.asset('lib/assets/No_serie.jpeg'),
+                SizedBox(height: 20),
               ],
             ),
           ),
+          backgroundColor: Color(0xFF2B2B2B),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text('Cerrar', style: TextStyle(color: Colors.white)),
+            ),
+          ],
         ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text('Cerrar'),
-          ),
-        ],
-      ),
-    );
+      );
+    }
   }
-}
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Color(0xFFFFFFFF),
       appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: Text('Marcador Telefónico', style: TextStyle(color: Colors.white)),
+        backgroundColor: Color(0xFFFFFFFF),
+        title: Text('', style: TextStyle(color: Colors.black)),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -122,11 +139,11 @@ void _checkSpecialCode() {
               controller: _controller,
               keyboardType: TextInputType.none,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 32, color: Colors.white),
+              style: TextStyle(fontSize: 32, color: Colors.black),
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: 'Número de teléfono',
-                hintStyle: TextStyle(color: Colors.white38),
+                hintStyle: TextStyle(color: Colors.black54),
               ),
             ),
           ),
@@ -138,48 +155,52 @@ void _checkSpecialCode() {
             ),
             itemCount: 12,
             itemBuilder: (context, index) {
-             List<Map<String, String>> buttons = [
-              {'number': '1', 'letters': ''},
-              {'number': '2', 'letters': 'ABC'},
-              {'number': '3', 'letters': 'DEF'},
-              {'number': '4', 'letters': 'GHI'},
-              {'number': '5', 'letters': 'JKL'},
-              {'number': '6', 'letters': 'MNO'},
-              {'number': '7', 'letters': 'PQRS'},
-              {'number': '8', 'letters': 'TUV'},
-              {'number': '9', 'letters': 'WXYZ'},
-              {'number': '*', 'letters': ''},
-              {'number': '0', 'letters': '+'},
-              {'number': '#', 'letters': ''},
-            ];
+              List<Map<String, String>> buttons = [
+                {'number': '1', 'letters': ''},
+                {'number': '2', 'letters': 'ABC'},
+                {'number': '3', 'letters': 'DEF'},
+                {'number': '4', 'letters': 'GHI'},
+                {'number': '5', 'letters': 'JKL'},
+                {'number': '6', 'letters': 'MNO'},
+                {'number': '7', 'letters': 'PQRS'},
+                {'number': '8', 'letters': 'TUV'},
+                {'number': '9', 'letters': 'WXYZ'},
+                {'number': '*', 'letters': ''},
+                {'number': '0', 'letters': '+'},
+                {'number': '#', 'letters': ''},
+              ];
 
-            return GestureDetector(
-              onTap: () => _addDigit(buttons[index]['number']!),
-              child: AnimatedContainer(
-                duration: Duration(milliseconds: 100),
-                margin: EdgeInsets.all(6),
-                decoration: BoxDecoration(
-                  color: Colors.black,
+              return Material(
+                color: Colors.transparent,
+                child: InkWell(
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.white54, width: 1.5),
-                ),
-                alignment: Alignment.center,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      buttons[index]['number']!,
-                      style: TextStyle(fontSize: 28, color: Colors.white, fontWeight: FontWeight.bold),
+                  splashColor: Colors.blueAccent.withOpacity(0.3),
+                  onTap: () => _addDigit(buttons[index]['number']!),
+                  child: Container(
+                    margin: EdgeInsets.all(6),
+                    decoration: BoxDecoration(
+                      color: Color(0xFFA9B8C7).withOpacity(0.9),
+                      borderRadius: BorderRadius.circular(12),
+                      
                     ),
-                    if (buttons[index]['letters']!.isNotEmpty)
-                      Text(
-                        buttons[index]['letters']!,
-                        style: TextStyle(fontSize: 12, color: Colors.white70),
-                      ),
-                  ],
+                    alignment: Alignment.center,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          buttons[index]['number']!,
+                          style: TextStyle(fontSize: 28, color: Colors.black54, fontWeight: FontWeight.bold),
+                        ),
+                        if (buttons[index]['letters']!.isNotEmpty)
+                          Text(
+                            buttons[index]['letters']!,
+                            style: TextStyle(fontSize: 12, color: Colors.black54),
+                          ),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-            );
+              );
             },
           ),
           SizedBox(height: 20),
@@ -187,7 +208,7 @@ void _checkSpecialCode() {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               IconButton(
-                icon: Icon(Icons.backspace, color: Colors.white, size: 32),
+                icon: Icon(Icons.backspace, color: Colors.black54, size: 32),
                 onPressed: _deleteDigit,
               ),
               SizedBox(width: 20),
@@ -204,7 +225,7 @@ void _checkSpecialCode() {
               ),
               SizedBox(width: 20),
               IconButton(
-                icon: Icon(Icons.contacts, color: Colors.white, size: 32),
+                icon: Icon(Icons.contacts, color: Colors.black54, size: 32),
                 onPressed: _openContacts,
               ),
             ],
